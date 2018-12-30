@@ -1,3 +1,4 @@
+var getMic = require("./getmic")
 var canvas      = document.body.appendChild(document.createElement('canvas'))
 var camera      = require('canvas-orbit-camera')(canvas)
 var perspective = require('gl-matrix').mat4.perspective
@@ -45,36 +46,18 @@ var line = VAO(gl, [{
 }])
 
 var start  = Date.now()
+var g_vertex = glslify('./line.vert')
+var g_fragment = glslify('./line.frag')
 var shader = Shader(gl
-  , glslify('./line.vert')
-  , glslify('./line.frag')
+  , g_vertex
+  , g_fragment
 )
 
 camera.distance = 5
 
-var audio = new Audio
-
-require('soundcloud-badge')({
-    client_id: 'ded451c6d8f9ff1c62f72523f49dab68'
-  , song: 'https://soundcloud.com/coltongorg/floating'
-  , getFonts: true
-}, function(err, src, data) {
-  if (err) throw err
-
-  audio.addEventListener('canplay', function() {
-    if (analyser) return
-    audio.play()
-    analyser = Analyser(audio)
-  }, false)
-
-  audio.crossOrigin = 'Anonymous'
-  audio.src = src
-  audio.addEventListener('ended', function() {
-    console.log('ended')
-    audio.currentTime = 0
-    audio.play()
-  }, false)
-})
+getMic().then(stream => 
+  analyser = Analyser(stream,{"audible":false})
+  )
 
 function render() {
   var width  = canvas.width
