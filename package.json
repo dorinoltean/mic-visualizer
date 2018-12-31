@@ -1,10 +1,10 @@
 {
-  "name": "moire-1",
+  "name": "mic-visualizer",
   "scripts": {
-    "start": "budo index.js:bundle.js -ssl -cors",
-    "dev": "browserify index.js -o dist/bundle.js && node ./server.js",
-    "genkey": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem",
-    "bundle": "browserify index.js -o dist/bundle.js"
+    "start": "budo index.js:public/js/bundle.js -d public --ssl --cors",
+    "genkey": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout public/key.pem -out public/cert.pem",
+    "bundle": "browserify index.js -o public/js/bundle.js",
+    "deploy": ""
   },
   "dependencies": {
     "browserify": "^16.2.3",
@@ -20,7 +20,6 @@
     "glsl-hsv2rgb": "^1.0.0",
     "glslify": "^7.0.0",
     "ndarray": "^1.0.15",
-    "soundcloud-badge": "1.1.0",
     "web-audio-analyser": "^2.0.1"
   },
   "browserify": {
@@ -29,6 +28,7 @@
     ]
   },
   "devDependencies": {
-    "budo": "^11.5.0"
+    "budo": "^11.5.0",
+    "gh-pages": "^2.0.1"
   }
 }
