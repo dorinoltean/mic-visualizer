@@ -2,9 +2,9 @@
   "name": "mic-visualizer",
   "scripts": {
     "start": "budo index.js:public/js/bundle.js -d public --ssl --cors",
-    "genkey": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout public/key.pem -out public/cert.pem",
+    "genkey": "openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem",
     "bundle": "browserify index.js -o public/js/bundle.js",
-    "deploy": ""
+    "deploy": "node ./deploy.js"
   },
   "dependencies": {
     "browserify": "^16.2.3",
